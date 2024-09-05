@@ -145,7 +145,7 @@ function getBook(id) {
 
 // ********* Destructuring *********
 
-const book = getBook(1);
+const book = getBook(2);
 book;
 
 // const title = book.title; 
@@ -174,10 +174,56 @@ const updatedBook = {
 };
 updatedBook;
 
-const summary = `${title}, a ${pages}-pages long book, was written by ${author} and published in ${publicationDate.split("-")[0]}. The book has ${hasMovieAdaptation? "" : "no"} been adapted into a movie.`;
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+
+
+const getYear = (str) => { 
+  return str.split("-")[0]; // use return if using {} otherwise it will give undefined
+}; // Arrow function
+console.log(getYear(publicationDate));
+
+const summary = `${title}, a ${pages}-pages long book, was written by ${author} and published in ${getYear(publicationDate)}. 
+The book has ${hasMovieAdaptation ? "" : "no"} been adapted into a movie.`;
 summary;
 
 
-const pagesRange = pages>1000 ? 'over a thousand': 'less than a thousand'; // Ternary operator
+const pagesRange = pages > 1000 ? 'over a thousand' : 'less than a thousand'; // Ternary operator
 pagesRange;
-console.log(`The books has ${pagesRange} pages.`)
+console.log(`The books has ${pagesRange} pages.`);
+
+
+
+// && operator returns the first value if first value is falsy
+// || operator returns the first value if first value is truthy
+
+console.log(true && 'some string');
+console.log(false && 'some string'); //short circuiting here as first value is false
+console.log(true || 'some string');
+console.log(false || 'some string'); //short circuiting here as first value is false
+
+console.log(hasMovieAdaptation && 'The book has a movie');
+console.log(hasMovieAdaptation || 'The book has no movie');
+
+// falsy values: false, null, undefined, 0, NaN, '' or "" or ``
+// truthy values: everything else
+console.log('naveen' && 'some string');
+console.log(null && 'some string');
+
+console.log(true || 'some string');
+console.log(false || 'some string');
+console.log(null || 'some string');
+console.log("naveen" || null); 
+
+const spanishTranslation = book.translations.spanish || "No translation available";
+spanishTranslation;
+
+
+console.log(book.reviews.librarything.reviewsCount);
+const countWrong = book.reviews.librarything.reviewsCount || "no data"; // wrong way to write it
+countWrong;
+
+// nullish coalescing operator returns the first value if it is not null or undefined, otherwise it returns the second value
+const count = book.reviews.librarything.reviewsCount ?? "no data"; // nullish coalescing operator
+count;
