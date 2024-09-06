@@ -279,3 +279,41 @@ const adventureBooks = books.filter((books) =>
 ).map((book) => book.title);
 adventureBooks;
 
+
+const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0); // reduce function
+pagesAllBooks;
+
+const arr = [3, 7, 1, 9, 6];
+const sorted = arr.sort((a, b) => a - b); // sort function changes original array
+sorted;
+arr;  // original array changed
+
+const array = [3, 7, 1, 9, 6];
+const sortedArr = array.slice().sort((a, b) => a - b); // slice creates a shallow copy of the array and sorts it.
+//When called without arguments, slice() copies all elements of the original array into a new array.
+sortedArr;
+array; //here original array remains unchanged.
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages); // descending order
+sortedByPages;
+
+
+// 1) Add a book object to the array
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  author: "J. K. Rowling"
+};
+
+const booksAfterAdd = [...books, newBook];
+booksAfterAdd;
+
+// 2) Delete a book object from the array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// 3) Update a book object in the array
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 12 } : book
+);
+booksAfterUpdate;
