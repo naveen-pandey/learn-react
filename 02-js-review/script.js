@@ -135,6 +135,8 @@ const data = [
   },
 ];
 
+
+
 function getBooks() {
   return data;
 }
@@ -143,9 +145,11 @@ function getBook(id) {
   return data.find((book) => book.id === id);
 }
 
+/*
+
 // ********* Destructuring *********
 
-const book = getBook(2);
+const book = getBook(3);
 book;
 
 // const title = book.title; 
@@ -220,10 +224,58 @@ const spanishTranslation = book.translations.spanish || "No translation availabl
 spanishTranslation;
 
 
-console.log(book.reviews.librarything.reviewsCount);
-const countWrong = book.reviews.librarything.reviewsCount || "no data"; // wrong way to write it
-countWrong;
+// console.log(book.reviews.librarything.reviewsCount);
+// const countWrong = book.reviews.librarything.reviewsCount || "no data"; // wrong way to write it
+// countWrong;
 
-// nullish coalescing operator returns the first value if it is not null or undefined, otherwise it returns the second value
-const count = book.reviews.librarything.reviewsCount ?? "no data"; // nullish coalescing operator
-count;
+// // nullish coalescing operator returns the second value if first value is null or undefined
+// const count = book.reviews.librarything.reviewsCount ?? "no data"; // nullish coalescing operator
+// count;
+
+
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads?.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0; // optional chaining operator
+  librarything;
+  return goodreads + librarything;
+}
+
+console.log(getTotalReviewCount(book));
+
+*/
+
+
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads?.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0; // optional chaining operator
+  librarything;
+  return goodreads + librarything;
+}
+
+const books = getBooks();
+books;
+
+const x = [1, 2, 3, 4, 5].map((el) => el * 2); // map function
+console.log(x);
+
+const titles = books.map((book) => book.title);
+titles;
+
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+  reviewsCount: getTotalReviewCount(book)
+}));
+essentialData;
+
+const longBookswithMovie = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation); // filter function
+longBookswithMovie;
+
+const adventureBooks = books.filter((books) =>
+  books.genres.includes("adventure")
+).map((book) => book.title);
+adventureBooks;
+
