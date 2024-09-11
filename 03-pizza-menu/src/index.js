@@ -75,10 +75,9 @@ function Menu() {
 	return (
 		<menu className="menu">
 			<h2>Our Menu</h2>
-            {/* <> is <React.Fragment>, we can also use like <React.Fragment key="dskjfs"> */}
+			{/* <> is <React.Fragment>, we can also use like <React.Fragment key="dskjfs"> */}
 			{numPizzas > 0 ? (
 				<>
-
 					<p>
 						Authentic Italian cuisine. 6 creative dishes to choose from. All
 						from our stone oven, all organic, all delicious.
@@ -116,10 +115,10 @@ function Pizza({ pizzaObj }) {
 	//destructuring prop name, pizzaObj name should exactly match the prop passed
 	console.log(pizzaObj);
 
-	if (pizzaObj.soldOut) return null;
+	// if (pizzaObj.soldOut) return null;
 
 	return (
-		<li className="pizza">
+		<li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
 			<img
 				src={pizzaObj.photoName}
 				alt={pizzaObj.name}
@@ -127,7 +126,7 @@ function Pizza({ pizzaObj }) {
 			<div className="">
 				<h3>{pizzaObj.name}</h3>
 				<p>{pizzaObj.ingredients}</p>
-				<span>{pizzaObj.price}</span>
+				<span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
 			</div>
 		</li>
 	);
