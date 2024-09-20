@@ -7,11 +7,16 @@ const initialItems = [
 ];
 
 export default function App() {
+	const [items, setItems] = useState([]);
+	function handleAdditems(item) {
+		setItems((items) => [...items, item]);
+	}
+
 	return (
 		<div className="App">
 			<Logo />
-			<Form />
-			<PackingList />
+			<Form onAdditems={handleAdditems} />
+			<PackingList items={items} />
 			<Stats />
 		</div>
 	);
@@ -21,20 +26,22 @@ function Logo() {
 	return <h1> 🏝️ Far Away 🧳</h1>;
 }
 
-function Form() {
+function Form({ onAdditems }) {
 	const [description, setDescription] = useState("");
 	const [quantity, setQuantity] = useState(1);
 
 	function handleSubmit(event) {
 		event.preventDefault();
 		console.log(event);
-    if(!description) return;
-    const newItem = { id: Date.now(), description, quantity, packed: false };
-    console.log(newItem);
+		if (!description) return;
+		const newItem = { id: Date.now(), description, quantity, packed: false };
+		console.log(newItem);
 
-    // update state with new item
-    setDescription("");
-    setQuantity(1);
+		onAdditems(newItem);
+
+		// update state with new item
+		setDescription("");
+		setQuantity(1);
 	}
 
 	return (
@@ -44,7 +51,9 @@ function Form() {
 			<h3>What do you need for your trip? 😍</h3>
 			<select
 				value={quantity}
-				onChange={(e) => setQuantity(Number(e.target.value))}> {/* e.target.value is string so we need to convert it to number */}
+				onChange={(e) => setQuantity(Number(e.target.value))}>
+				{" "}
+				{/* e.target.value is string so we need to convert it to number */}
 				{Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
 					<option
 						value={num}
@@ -64,11 +73,11 @@ function Form() {
 	);
 }
 
-function PackingList() {
+function PackingList({ items }) {
 	return (
 		<div className="list">
 			<ul>
-				{initialItems.map((item) => (
+				{items.map((item) => (
 					<Item
 						item={item}
 						key={item.id}
